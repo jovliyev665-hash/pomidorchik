@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>помидорчик_cs 🍅</title>
+<style>
+:root{--bg:#1a0f10;--card:#2a1618;--red:#e5322d;--green:#5cb85c;--txt:#fff3ee;--mut:#c9a9a3;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 16px;background:var(--red);flex-wrap:wrap}
+.logo{font-size:22px;font-weight:800}
+.bal{background:#0006;padding:6px 12px;border-radius:20px;font-weight:700}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--green);color:#10200f;font-weight:700}
+button.red{background:var(--red);color:#fff}
+button.ghost{background:#fff2;color:var(--txt)}
+button:disabled{opacity:.4;cursor:default}
+nav{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));display:flex;gap:2px;padding:6px;background:#2a1618ee;border:1px solid #fff2;border-radius:22px;z-index:5}
+nav button{flex:1;background:none;color:var(--mut);padding:6px 0;font-size:11px;font-weight:600;border-radius:14px;line-height:1.2}
+nav button span{display:block;font-size:20px}
+nav button.on{background:#e5322d44;color:#fff}
+main{padding-bottom:110px}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cc{position:relative;border-radius:18px;aspect-ratio:1/1.05;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;padding:10px;cursor:pointer;overflow:hidden;box-shadow:0 4px 14px #0006}
+.ce{position:absolute;top:14%;font-size:64px;filter:drop-shadow(0 4px 6px #0008)}
+.cc b{background:#0007;padding:4px 12px;border-radius:14px;font-size:15px}
+.cc u{text-decoration:none;background:#0008;padding:4px 12px;border-radius:14px;font-weight:700}
+.bd{position:absolute;top:8px;right:8px;background:#0008;border-radius:12px;padding:3px 8px;font-size:12px;font-style:normal;font-weight:800}
+main{max-width:720px;margin:0 auto;padding:8px 14px 40px}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:12px}
+h2{margin:6px 0 10px}
+.mut{color:var(--mut);font-size:14px}
+input,select{font:inherit;background:#0006;color:var(--txt);border:1px solid #fff3;border-radius:8px;padding:8px;width:100px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.reveal{text-align:center;font-size:20px;font-weight:800;min-height:90px;display:flex;flex-direction:column;justify-content:center;border:2px dashed #fff3;border-radius:12px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0}
+.grid button{aspect-ratio:1;font-size:22px;background:#4a2a2c;color:#fff;padding:0}
+.grid button.ok{background:var(--green)}.grid button.bad{background:var(--red)}
+.big{font-size:56px;font-weight:800;text-align:center;margin:14px 0}
+.item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #fff1}
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:#000c;padding:10px 16px;border-radius:20px;display:none;z-index:9}
+:root{--bg:#07050f;--card:#120b22;--red:#ff2d6f;--green:#2dffa8;--txt:#f4eeff;--mut:#9d8fc4}
+body{background:radial-gradient(circle at 20% -10%,#2a0f4d,transparent 50%),radial-gradient(circle at 90% 10%,#3d0a2a,transparent 45%),var(--bg);min-height:100vh}
+header{background:#0b0718;border-bottom:1px solid #ff2d6f88;box-shadow:0 2px 24px #ff2d6f55}
+.logo{color:#fff;text-shadow:0 0 8px #ff2d6f,0 0 20px #ff2d6f}
+.bal{background:#1b1033;border:1px solid #2dffa888;color:#2dffa8;box-shadow:0 0 12px #2dffa844}
+.card{border:1px solid #ff2d6f44;box-shadow:0 0 16px #ff2d6f22}
+button{background:linear-gradient(135deg,#2dffa8,#00c2ff);color:#07050f}
+button.red{background:linear-gradient(135deg,#ff2d6f,#a02dff);color:#fff;box-shadow:0 0 14px #ff2d6f66}
+button.ghost{background:#ffffff14;color:var(--txt)}
+nav{background:#0d0820ee;border:1px solid #ff2d6f66;box-shadow:0 0 20px #ff2d6f44}
+nav button.on{background:#ff2d6f33;color:#fff;text-shadow:0 0 8px #ff2d6f}
+.grid button{background:#241446;color:#fff}.grid button.ok{background:#2dffa8;color:#07050f}.grid button.bad{background:#ff2d6f}
+input,select{background:#0b0718;border-color:#ff2d6f55}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">🍅 помидорчик_cs</div>
+<div class="row"><span class="bal">🍅 <span id="bal">0</span></span><button class="ghost" id="login">Войти через Google</button></div>
+</header>
+<nav id="nav"><button data-t="games"><span>🎮</span>Игры</button><button data-t="cases"><span>🎁</span>Кейсы</button><button data-t="daily"><span>✅</span>Задания</button><button data-t="gift"><span>🎟️</span>Розыгрыш</button><button data-t="inv"><span>🎒</span>Скины</button><button data-t="adm" id="admBtn" style="display:none"><span>🛠</span>Админ</button></nav>
+<main>
+<div class="card mut">Помидоры виртуальные, реальных денег нет. Войди через Google, чтобы прогресс сохранялся.</div>
+
+<section id="t-cases">
+<div id="cgrid" class="cg"></div>
+<div id="cview" style="display:none" class="card">
+<button class="ghost" id="cback">← Назад</button>
+<h2 id="cname"></h2>
+<div class="reveal" id="rev">Открой кейс!</div>
+<button class="red" id="openC"></button>
+<h3>Что может выпасть</h3><div id="cdrops"></div></div>
+</section>
+
+<section id="t-daily">
+<div class="card"><h2>Ежедневный бонус</h2><p class="mut">Раз в 24 часа +100 🍅</p><button id="bonus">Забрать</button></div>
+<div class="card"><h2>Задания на сегодня</h2><div id="tasks"></div></div>
+</section>
+
+<section id="t-mines">
+<div class="card"><button class="ghost" data-go="games">← Игры</button><h2>Мины</h2>
+<div class="row">Ставка <input id="mb" type="number" min="1" value="50"> Мин <select id="mm"><option>1</option><option selected>3</option><option>5</option><option>10</option></select><button class="red" id="mStart">Играть</button></div>
+<div class="grid" id="mg"></div>
+<div class="row"><button id="mCash" disabled>Забрать</button><span id="mInfo" class="mut"></span></div></div>
+</section>
+
+<section id="t-crash">
+<div class="card"><button class="ghost" data-go="games">← Игры</button><h2>Краш</h2>
+<div class="big" id="cm">1.00x</div>
+<div class="row">Ставка <input id="cb" type="number" min="1" value="50"><button class="red" id="cStart">Старт</button><button id="cCash" disabled>Забрать</button></div>
+<p class="mut" id="cInfo"></p></div>
+</section>
+
+<section id="t-gift">
+<div class="card"><h2>🎟️ Конкурсы</h2><div id="cl" class="mut">Загрузка...</div></div>
+<div class="card"><h2>Билеты за рекламу</h2><p class="mut">Смотри рекламу и получай билеты. Чем больше билетов, тем больше шансов. Участие бесплатное.</p>
+<div class="reveal" id="adBox" style="display:none"></div>
+<div class="row"><button class="red" id="adBtn">Смотреть рекламу (+1 билет)</button></div>
+<p>Твои билеты: <b id="tk">0</b> · Реклам на сегодня: <b id="adLeft">5</b></p>
+<p class="mut">Это демо: вместо настоящей рекламы таймер на 5 секунд. Настоящую рекламу подключим позже, а билеты будет считать сервер.</p></div></section>
+
+<section id="t-lock"><div class="card" style="text-align:center"><div style="font-size:56px">🔒</div><h2 id="lockT"></h2><p>Пока что недоступно</p></div></section>
+<section id="t-games"><div class="card"><h2>🎮 Игры</h2><div class="cg">
+<div class="cc" data-go="crash" style="background:linear-gradient(160deg,#1a0b3a,#ff2d6f)"><div class="ce">📈</div><b>Краш</b></div>
+<div class="cc" data-go="mines" style="background:linear-gradient(160deg,#06283a,#2dffa8)"><div class="ce">💣</div><b>Мины</b></div>
+<div class="cc" id="bt" style="background:linear-gradient(160deg,#2b1247,#8847ff)"><i class="bd">СКОРО</i><div class="ce">⚔️</div><b>Кейс-баттл</b></div></div></div></section>
+<section id="t-adm"><div class="card"><h2>🛠 Админ-панель</h2><div class="row">
+<input id="ct" placeholder="Название конкурса" style="width:100%"><input id="cp" placeholder="Приз (скин)" style="width:100%"><input id="cd" placeholder="До какого числа" style="width:100%"><button class="red" id="cmk">Создать конкурс</button></div></div>
+<div class="card"><h2>Конкурсы</h2><div id="al"></div></div></section>
+<section id="t-inv"><div class="card"><h2>Твои скины</h2><div id="inv"></div></div></section>
+</main>
+<div id="toast"></div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc,collection,getDocs,addDoc,deleteDoc,updateDoc,query,orderBy} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+var fa=initializeApp({apiKey:"AIzaSyAb3rBpSQYauXyKLV6kJlgKEJ8KaN9Bc7I",authDomain:"pomidorchik-cs.firebaseapp.com",projectId:"pomidorchik-cs",storageBucket:"pomidorchik-cs.firebasestorage.app",messagingSenderId:"438657212630",appId:"1:438657212630:web:4cdc0dad4debf20469a977"});
+var au=getAuth(fa),db=getFirestore(fa);
+var SK=[
+{n:"P250 | Sand Dune",v:40,w:45,c:"#b0c3d9"},
+{n:"MP9 | Hot Rod",v:90,w:30,c:"#5e98d9"},
+{n:"Glock-18 | Water Elemental",v:180,w:15,c:"#4b69ff"},
+{n:"AK-47 | Redline",v:400,w:8,c:"#8847ff"},
+{n:"AWP | Asiimov",v:900,w:1.8,c:"#d32ce6"},
+{n:"Karambit | Doppler",v:5000,w:0.2,c:"#ffd700"}];
+var day=new Date().toDateString();
+var S={bal:1000,inv:[],last:0,user:null,tk:0,ad:0,day:day,t:{open:0,mines:0,crash:0},cl:{}};
+try{var r=localStorage.getItem("pomidor");if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+function rollDay(){if(S.day!==day){S.day=day;S.t={open:0,mines:0,crash:0};S.cl={};S.ad=0}}rollDay();
+function $(i){return document.getElementById(i)}
+var U=null;function persist(){try{localStorage.setItem("pomidor",JSON.stringify(S))}catch(e){}if(U){return setDoc(doc(db,"users",U.uid),JSON.parse(JSON.stringify(S))).catch(function(){toast("Не удалось сохранить")})}}function save(){persist();ui()}
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},2200)}
+function bet(id){var b=Math.floor(+$(id).value);if(!(b>=1)){toast("Введи ставку");return 0}if(b>S.bal){toast("Не хватает помидоров");return 0}return b}
+var TK=[["open","Открой 1 кейс",1],["mines","Сыграй 3 раза в Мины",3],["crash","Сыграй 2 раза в Краш",2]];
+function ui(){
+$("bal").textContent=S.bal;$("tk").textContent=S.tk;$("adLeft").textContent=Math.max(0,5-S.ad);
+$("login").textContent=S.user?"👤 "+S.user:"Войти через Google";
+$("openC").disabled=BUSY||!CUR||S.bal<CUR.p;
+$("tasks").innerHTML="";
+TK.forEach(function(k){var d=S.t[k[0]]>=k[2],c=S.cl[k[0]];var e=document.createElement("div");e.className="item";
+e.innerHTML="<span>"+k[1]+" ("+Math.min(S.t[k[0]],k[2])+"/"+k[2]+") +100 🍅</span>";
+var b=document.createElement("button");b.textContent=c?"Получено":"Забрать";b.disabled=!d||c;
+b.onclick=function(){S.cl[k[0]]=1;S.bal+=100;save()};e.appendChild(b);$("tasks").appendChild(e)});
+$("inv").innerHTML=S.inv.length?"":"<p class='mut'>Пока пусто</p>";
+S.inv.forEach(function(s,i){var e=document.createElement("div");e.className="item";
+e.innerHTML="<span style='color:"+s.c+"'>"+s.n+"</span>";
+var b=document.createElement("button");b.className="ghost";b.textContent="Продать "+s.v+" 🍅";
+b.onclick=function(){S.bal+=s.v;S.inv.splice(i,1);save()};e.appendChild(b);$("inv").appendChild(e)})}
+var LOCK=true,GM=["cases","games","mines","crash"];
+function go(t){if(t==="adm"&&!isAdm())return;var sec=t;if(LOCK&&GM.indexOf(t)>-1){sec="lock";$("lockT").textContent=({cases:"Кейсы",games:"Игры",mines:"Мины",crash:"Краш"})[t]}
+document.querySelectorAll("nav button").forEach(function(b){var d=b.dataset.t;b.classList.toggle("on",d===t||(d==="games"&&(t==="mines"||t==="crash")))});
+document.querySelectorAll("section").forEach(function(x){x.classList.toggle("on",x.id==="t-"+sec)})}
+$("nav").onclick=function(e){var bt=e.target.closest("button");if(bt)go(bt.dataset.t)};
+document.addEventListener("click",function(e){var g=e.target.closest("[data-go]");if(g)go(g.dataset.go)});
+$("login").onclick=function(){if(U){try{localStorage.removeItem("pomidor")}catch(e){}signOut(au).then(function(){location.reload()})}else{signInWithPopup(au,new GoogleAuthProvider()).catch(function(){toast("Не удалось войти")})}};
+onAuthStateChanged(au,async function(u){U=u;if(u){try{var d=await getDoc(doc(db,"users",u.uid));if(d.exists())S=Object.assign(S,d.data());S.user=u.displayName||"Игрок";rollDay();await persist()}catch(e){toast("Ошибка базы данных")}}else{S.user=null}admVis();loadC();ui()});
+$("bonus").onclick=function(){var n=Date.now();if(n-S.last<864e5){toast("Бонус уже получен, приходи позже")}else{S.last=n;S.bal+=100;toast("+100 🍅")}save()};
+/* кейсы */
+var CUR=null,BUSY=0;
+var CS=[
+{n:"Грядка",p:250,e:"🌱",g:"#3b1210,#e5322d",b:"ХИТ",s:[0,1,2,3,4,5],w:[45,30,15,8,1.8,0.2]},
+{n:"Огород",p:500,e:"🌶️",g:"#3a1b05,#f08a1c",b:"ХИТ",s:[1,2,3,4,5],w:[45,30,17,6.5,1.5]},
+{n:"Теплица",p:1000,e:"🍅",g:"#0f3a1b,#3fae5a",b:"",s:[2,3,4,5],w:[45,35,17,3]},
+{n:"Урожай",p:2500,e:"👑",g:"#2b1247,#8847ff",b:"НОВЫЙ",s:[3,4,5],w:[60,32,8]}];
+function drawCases(){var g=$("cgrid");g.innerHTML="";CS.forEach(function(c){var d=document.createElement("div");d.className="cc";d.style.background="linear-gradient(160deg,"+c.g+")";
+d.innerHTML=(c.b?"<i class='bd'>"+c.b+"</i>":"")+"<div class='ce'>"+c.e+"</div><b>"+c.n+"</b><u>"+c.p+" 🍅</u>";d.onclick=function(){showC(c)};g.appendChild(d)})}
+function showC(c){CUR=c;$("cgrid").style.display="none";$("cview").style.display="block";$("cname").textContent=c.e+" "+c.n;
+$("openC").textContent="Открыть за "+c.p+" 🍅";$("rev").textContent="Открой кейс!";
+var tot=c.w.reduce(function(a,b){return a+b},0);$("cdrops").innerHTML="";
+c.s.forEach(function(i,j){var s=SK[i],e=document.createElement("div");e.className="item";e.innerHTML="<span style='color:"+s.c+"'>"+s.n+"</span><span class='mut'>"+(c.w[j]/tot*100).toFixed(1)+"% · "+s.v+" 🍅</span>";$("cdrops").appendChild(e)});ui()}
+$("cback").onclick=function(){if(BUSY)return;CUR=null;$("cview").style.display="none";$("cgrid").style.display="grid"};
+$("openC").onclick=function(){var c=CUR;if(!c||BUSY||S.bal<c.p)return;S.bal-=c.p;S.t.open++;BUSY=1;ui();
+var tot=c.w.reduce(function(a,b){return a+b},0),x=Math.random()*tot,wi=c.s[0];
+for(var i=0;i<c.s.length;i++){x-=c.w[i];if(x<0){wi=c.s[i];break}}
+var win=SK[wi],k=0,h=setInterval(function(){var s=SK[c.s[Math.floor(Math.random()*c.s.length)]];$("rev").innerHTML="<span style='color:"+s.c+"'>"+s.n+"</span>";
+if(++k>12){clearInterval(h);$("rev").innerHTML="<span style='color:"+win.c+"'>"+win.n+"</span><span class='mut'>стоит "+win.v+" 🍅</span>";S.inv.push(win);BUSY=0;save()}},90)};
+drawCases();
+/* мины */
+var M=null;
+function mult(k,m){var x=.97;for(var i=0;i<k;i++)x*=(25-i)/(25-m-i);return x}
+function drawM(){var g=$("mg");g.innerHTML="";for(var i=0;i<25;i++){(function(i){var b=document.createElement("button");
+if(M){if(M.o[i]){b.textContent="🍅";b.className="ok"}else if(M.end&&M.m[i]){b.textContent="💣";b.className="bad"}}
+b.disabled=!M||M.end||M.o[i];b.onclick=function(){pick(i)};g.appendChild(b)})(i)}}
+$("mStart").onclick=function(){var b=bet("mb");if(!b)return;if(M&&!M.end)return;
+var n=+$("mm").value,m={};while(Object.keys(m).length<n)m[Math.floor(Math.random()*25)]=1;
+S.bal-=b;S.t.mines++;M={b:b,n:n,m:m,o:{},k:0,end:false};$("mCash").disabled=true;$("mInfo").textContent="Открывай клетки";save();drawM()};
+function pick(i){if(M.m[i]){M.end=true;$("mInfo").textContent="Бум! Ставка сгорела";$("mCash").disabled=true;drawM();return}
+M.o[i]=1;M.k++;var x=mult(M.k,M.n);$("mInfo").textContent="Множитель "+x.toFixed(2)+"x → "+Math.floor(M.b*x)+" 🍅";$("mCash").disabled=false;
+if(M.k===25-M.n)cash();else drawM()}
+function cash(){var w=Math.floor(M.b*mult(M.k,M.n));S.bal+=w;M.end=true;$("mInfo").textContent="Забрал "+w+" 🍅";$("mCash").disabled=true;save();drawM()}
+$("mCash").onclick=function(){if(M&&!M.end&&M.k)cash()};
+drawM();
+/* розыгрыш */
+var AD=null;
+$("adBtn").onclick=function(){if(AD)return;if(S.ad>=5){toast("На сегодня реклама закончилась");return}
+var n=5;$("adBtn").disabled=true;$("adBox").style.display="flex";$("adBox").textContent="Здесь будет реклама... "+n;
+AD=setInterval(function(){n--;if(n>0){$("adBox").textContent="Здесь будет реклама... "+n}else{clearInterval(AD);AD=null;$("adBox").style.display="none";$("adBtn").disabled=false;S.ad++;S.tk++;toast("+1 билет на розыгрыш");save()}},1000)};
+/* краш */
+var C=null;
+$("cStart").onclick=function(){if(C)return;var b=bet("cb");if(!b)return;S.bal-=b;S.t.crash++;save();
+var pt=Math.min(100,Math.max(1,.97/(1-Math.random()))),t0=Date.now();C={b:b};
+$("cStart").disabled=true;$("cCash").disabled=false;$("cInfo").textContent="";$("cm").style.color="";
+C.h=setInterval(function(){var m=Math.exp((Date.now()-t0)*.0001);
+if(m>=pt){clearInterval(C.h);$("cm").textContent=pt.toFixed(2)+"x";$("cm").style.color="#e5322d";$("cInfo").textContent="Краш! Ставка сгорела";C=null;$("cStart").disabled=false;$("cCash").disabled=true}
+else{C.m=m;$("cm").textContent=m.toFixed(2)+"x"}},50)};
+$("cCash").onclick=function(){if(!C)return;clearInterval(C.h);var w=Math.floor(C.b*C.m);S.bal+=w;$("cInfo").textContent="Забрал "+w+" 🍅 на "+C.m.toFixed(2)+"x";$("cm").style.color="#5cb85c";C=null;$("cStart").disabled=false;$("cCash").disabled=true;save()};
+/* админ и конкурсы */
+var ADMIN="jovliyev665@gmail.com";
+function isAdm(){return U&&U.email===ADMIN}
+function admVis(){$("admBtn").style.display=isAdm()?"":"none"}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+async function loadC(){var out=[];
+try{var q=await getDocs(query(collection(db,"contests"),orderBy("ts","desc")));q.forEach(function(d){out.push(Object.assign({id:d.id},d.data()))})}catch(e){$("cl").textContent="Не удалось загрузить конкурсы";return}
+$("cl").innerHTML=out.length?"":"Пока нет конкурсов";
+out.forEach(function(c){var e=document.createElement("div");e.className="item";
+e.innerHTML="<span><b>"+esc(c.title)+"</b><br>Приз: "+esc(c.prize)+"<br><span class='mut'>До: "+esc(c.end)+(c.open?"":" · Победитель: "+esc(c.winner))+"</span></span>";
+if(c.open){var b=document.createElement("button");b.textContent="Участвовать (1 🎟)";b.onclick=function(){join(c.id)};e.appendChild(b)}
+$("cl").appendChild(e)});admList(out)}
+async function join(id){if(!U){toast("Сначала войди через Google");return}if(S.tk<1){toast("Нужен билет: посмотри рекламу");return}
+try{var r=doc(db,"contests",id,"entries",U.uid),d=await getDoc(r),n=d.exists()?d.data().n:0;
+await setDoc(r,{name:S.user||"Игрок",n:n+1});S.tk--;save();toast("Ты участвуешь, билетов в конкурсе: "+(n+1))}catch(e){toast("Не получилось участвовать")}}
+function admList(out){var a=$("al");a.innerHTML="";out.forEach(function(c){var e=document.createElement("div");e.className="item";
+e.innerHTML="<span>"+esc(c.title)+" <span class='mut'>("+(c.open?"идёт":"закрыт: "+esc(c.winner))+")</span></span>";
+var w=document.createElement("button");w.textContent="Победитель";w.disabled=!c.open;w.onclick=function(){pickW(c)};
+var x=document.createElement("button");x.className="ghost";x.textContent="Удалить";x.onclick=async function(){if(confirm("Удалить конкурс?")){await deleteDoc(doc(db,"contests",c.id));loadC()}};
+e.appendChild(w);e.appendChild(x);a.appendChild(e)})}
+async function pickW(c){try{var q=await getDocs(collection(db,"contests",c.id,"entries")),p=[],t=0;q.forEach(function(d){var v=d.data();p.push(v);t+=v.n});
+if(!t){toast("Нет участников");return}var x=Math.random()*t,w=p[0];for(var i=0;i<p.length;i++){x-=p[i].n;if(x<0){w=p[i];break}}
+await updateDoc(doc(db,"contests",c.id),{open:false,winner:w.name});toast("Победитель: "+w.name+" (участников: "+p.length+")");loadC()}catch(e){toast("Ошибка")}}
+$("cmk").onclick=async function(){if(!isAdm())return;var t=$("ct").value.trim(),p=$("cp").value.trim(),d=$("cd").value.trim();if(!t||!p){toast("Заполни название и приз");return}
+try{await addDoc(collection(db,"contests"),{title:t,prize:p,end:d||"без даты",open:true,winner:"",ts:Date.now()});$("ct").value="";$("cp").value="";$("cd").value="";loadC();toast("Конкурс создан")}catch(e){toast("Не удалось создать")}};
+$("bt").onclick=function(){toast("Кейс-баттл скоро")};
+go("daily");ui();
+</script>
+</body>
+</html>
